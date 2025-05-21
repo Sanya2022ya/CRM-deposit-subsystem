@@ -1,0 +1,326 @@
+/* gemini.css */
+
+body {
+    background-color: #f8f9fa; /* Светлый фон для всей страницы */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #007bff; /* Цвет навбара */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand, .navbar-text {
+    color: white !important;
+}
+
+.navbar .btn-link {
+    color: white;
+    text-decoration: none;
+}
+
+.container-main {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05);
+    border: none;
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.5rem;
+    overflow: hidden; /* Важно для скругленных углов */
+}
+
+.table thead th {
+    background-color: #e9ecef; /* Светлее фон для заголовков таблицы */
+    border-bottom: 2px solid #dee2e6;
+    padding: 12px 15px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.table tbody tr:hover {
+    background-color: #f2f2f2; /* Легкое выделение при наведении */
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Статусы */
+.status-active {
+    color: #28a745; /* Bootstrap success green */
+    font-weight: 500;
+}
+
+.status-blocked {
+    color: #dc3545; /* Bootstrap danger red */
+    font-weight: 500;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+.modal-content {
+    border-radius: 0.7rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,.175);
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 0.7rem;
+    border-bottom-right-radius: 0.7rem;
+}
+
+/* Отступы для формы поиска и кнопки */
+.search-add-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input-group {
+    flex-grow: 1;
+    max-width: 500px; /* Ограничим ширину поиска */
+}
+/* gemini.css - Дополнения для страницы профиля клиента */
+
+/* Общие стили для форм редактирования полей */
+.field-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0e0e0; /* Легкая граница для разделения полей */
+}
+
+.field-row:last-child {
+    border-bottom: none;
+}
+
+.field-label {
+    font-weight: 600;
+    width: 180px; /* Увеличил ширину для лучшего выравнивания */
+    flex-shrink: 0; /* Не даем сжиматься */
+    color: #495057;
+}
+
+.field-value {
+    flex-grow: 1;
+    margin-right: 15px; /* Увеличил отступ справа для текста */
+    margin-left: 10px; /* Добавил отступ слева для текста */
+    color: #343a40;
+}
+
+.field-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 6px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.field-input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Профиль клиента - кнопки редактирования/сохранения */
+.edit-btn, .save-btn {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-left: 8px; /* Отступ слева для кнопки */
+    white-space: nowrap; /* Чтобы кнопка не переносилась на новую строку */
+}
+
+.edit-btn {
+    /* Используем outline-secondary для светлой кнопки с серой рамкой */
+    background-color: transparent; /* Делаем фон прозрачным */
+    color: #6c757d; /* Цвет текста/иконки - серый */
+    border-color: #6c757d; /* Цвет рамки - серый */
+}
+
+.edit-btn:hover {
+    background-color: #6c757d; /* При наведении фон становится серым */
+    color: white; /* Цвет текста становится белым */
+}
+
+.save-btn {
+    /* Используем outline-success для светлой кнопки с зеленой рамкой */
+    background-color: transparent; /* Делаем фон прозрачным */
+    color: #198754; /* Цвет текста/иконки - зеленый */
+    border-color: #198754; /* Цвет рамки - зеленый */
+}
+
+.save-btn:hover {
+    background-color: #198754; /* При наведении фон становится зеленым */
+    color: white; /* Цвет текста становится белым */
+}
+
+/* Стили для кнопок действий клиента */
+.client-actions .btn {
+    margin-right: 10px;
+    margin-bottom: 10px; /* Для лучшего расположения на маленьких экранах */
+}
+
+/* Отступы для форм операций со счетом */
+/* Стили для форм операций со счетом */
+.account-operations form {
+    display: flex; /* Делаем элементы формы в ряд */
+    gap: 10px; /* Отступ между элементами формы */
+    align-items: flex-end; /* Выравнивание элементов по нижнему краю */
+    margin-bottom: 15px; /* Отступ между формами операций */
+}
+
+.account-operations form:last-child {
+    margin-bottom: 0; /* Убираем отступ у последней формы */
+}
+
+.account-operations input[type="number"] {
+    flex-grow: 1; /* Поле ввода будет занимать доступное место */
+    max-width: 200px; /* Ограничиваем максимальную ширину */
+}
+
+
+/* Таблицы депозитов */
+.deposit-table thead th {
+    background-color: #f0f8ff; /* Более светлый синий фон */
+    color: #333;
+}
+/* Стили для кнопок в таблице депозитов */
+.deposit-table td button {
+    margin-right: 5px; /* Отступ между кнопками действий в таблице */
+    margin-bottom: 5px; /* Отступ снизу для кнопок в таблице, если они переносятся */
+}
+.deposit-table td form.d-inline {
+    margin-right: 5px; /* Отступ для формы кнопки "Закрыть" */
+}
+
+/* Дополнительные стили для скрытых элементов форм */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+/* Улучшение внешнего вида модальных окон Bootstrap */
+.modal-title {
+    font-weight: 600;
+    color: #343a40;
+}
+
+/* Дополнительные стили для полей формы внутри модалок */
+.modal-body .form-item {
+    margin-bottom: 15px;
+}
+
+.modal-body .form-item label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Стили для таблицы типов вкладов внутри модального окна */
+.modal-content .deposit-types-list table {
+    margin-top: 20px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.modal-content .deposit-types-list th,
+.modal-content .deposit-types-list td {
+    border: 1px solid #e9ecef;
+}
+
+.modal-content .deposit-types-list th {
+    background-color: #e9ecef;
+}
+
+/* Кнопка "Назад" */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.back-link:hover {
+    color: #0056b3;
+}

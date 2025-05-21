@@ -1,0 +1,121 @@
+/* Основные цвета */
+:root {
+    --main-bg-color: #f8f9fa;
+    --header-bg-color: #0d6efd;
+    --sidebar-bg-color: #f1f3f5;
+    --text-color: #212529;
+}
+
+/* Общее */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+}
+
+/* Шапка */
+.header {
+    background-color: var(--header-bg-color);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Боковое меню */
+.sidebar {
+    width: 220px;
+    background-color: var(--sidebar-bg-color);
+    padding: 1rem;
+    position: fixed;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    border-right: 1px solid #dee2e6;
+}
+
+.sidebar a {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    transition: background 0.2s;
+}
+
+.sidebar a:hover {
+    background-color: #e9ecef;
+}
+
+/* Контент */
+.main-content {
+    margin-left: 240px;
+    padding: 2rem;
+}
+
+/* Таблица */
+.table-custom {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table-custom thead {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.table-custom th, .table-custom td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.table-custom tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Статусы */
+.text-success {
+    color: green !important;
+}
+
+.text-danger {
+    color: red !important;
+}
+
+/* Модалка */
+.modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка выхода */
+.logout-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+/* Поиск */
+.search-box {
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+}
