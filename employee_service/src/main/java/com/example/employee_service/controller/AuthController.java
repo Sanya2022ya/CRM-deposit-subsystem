@@ -1,16 +1,14 @@
 package com.example.employee_service.controller;
 
-
-
 import com.example.employee_service.dto.AccountDTO;
 import com.example.employee_service.dto.ClientDTO;
 import com.example.employee_service.dto.DepositResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import com.example.employee_service.config.RestTemplateConfig;
 import com.example.employee_service.model.Employee;
 import com.example.employee_service.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,9 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -38,36 +39,38 @@ public class AuthController {
 
     @GetMapping("/masterpage")
     public String masterpage(Model model) {
-        List<Employee> employees = employeeRepository.findAll(); // получаем всех
-        model.addAttribute("employees", employees); // именно ЭТО нужно для шаблона
+        List<Employee> employees = employeeRepository.findAll();
+        model.addAttribute("employees", employees);
         model.addAttribute("employee", new Employee());
         return "masterpage";
     }
 
+    @PostMapping("/masterpage")
+    public String addEmployee(@ModelAttribute("employee") Employee newEmployee) {
+        newEmployee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
+        if (!newEmployee.getRole().startsWith("ROLE_")) {
+            newEmployee.setRole("ROLE_" + newEmployee.getRole());
+        }
+        newEmployee.setBlocked(false);
+        employeeRepository.save(newEmployee);
+        return "redirect:/masterpage";
+    }
+
+    @GetMapping("/blocked")
+    public String blockedPage() {
+        return "blocked";
+    }
 
     @PostMapping("/employees/{id}/toggle-block")
     public String toggleBlockEmployee(@PathVariable Long id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         if (employee != null) {
-            employee.setBlocked(!employee.isBlocked()); // переключаем статус
+            employee.setBlocked(!employee.isBlocked());
             employeeRepository.save(employee);
         }
         return "redirect:/masterpage";
     }
 
-
-    @PostMapping("/masterpage")
-    public String register(@ModelAttribute Employee employee) {
-        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-        if (!employee.getRole().startsWith("ROLE_")) {
-            employee.setRole("ROLE_" + employee.getRole());
-        }
-        employeeRepository.save(employee);
-        return "redirect:/login";
-    }
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @GetMapping("/dashboard")
     public String dashboard(@RequestParam(value = "query", required = false) String query,
@@ -78,7 +81,6 @@ public class AuthController {
         List<ClientDTO> clients;
 
         if (query == null || query.trim().isEmpty()) {
-            // Без фильтра — получаем всех
             ResponseEntity<List<ClientDTO>> response = restTemplate.exchange(
                     "http://localhost:8081/clients",
                     HttpMethod.GET,
@@ -87,7 +89,6 @@ public class AuthController {
             );
             clients = response.getBody();
         } else if (query.matches("\\d{4}\\s?\\d{6}")) {
-            // Поиск по паспорту
             try {
                 ClientDTO client = restTemplate.getForObject(
                         "http://localhost:8081/clients/passport/{passport}",
@@ -96,10 +97,9 @@ public class AuthController {
                 );
                 clients = client != null ? List.of(client) : List.of();
             } catch (Exception e) {
-                clients = List.of(); // если не найден — пустой список
+                clients = List.of();
             }
         } else {
-            // Гибкий поиск по любой части ФИО
             ResponseEntity<List<ClientDTO>> response = restTemplate.exchange(
                     "http://localhost:8081/clients/search-any?query={query}",
                     HttpMethod.GET,
@@ -110,28 +110,23 @@ public class AuthController {
             clients = response.getBody();
         }
 
-
         model.addAttribute("clients", clients);
-        model.addAttribute("query", query); // чтобы поле было заполнено после поиска
+        model.addAttribute("query", query);
         return "dashboard";
     }
 
     @GetMapping("/clients/{id}")
     public String viewClient(@PathVariable Long id, Model model) {
         String url = "http://localhost:8081/clients/" + id;
-
         ClientDTO client = restTemplate.getForObject(url, ClientDTO.class);
         model.addAttribute("client", client);
-
-        // если нужно, можешь добавить информацию о балансе, вкладах и т.д. аналогично
-        return "client-profile"; // имя Thymeleaf-шаблона
+        return "client-profile";
     }
+
     @PostMapping("/clients/{id}")
     public String updateClient(@PathVariable Long id, @ModelAttribute ClientDTO client) {
         String url = "http://localhost:8081/clients/" + id;
-
         restTemplate.put(url, client);
-
         return "redirect:/clients/" + id;
     }
 
@@ -148,12 +143,14 @@ public class AuthController {
         restTemplate.postForLocation(url, null);
         return "redirect:/clients/" + id;
     }
+
     @PostMapping("/clients/{id}/remove")
     public String removeClient(@PathVariable Long id) {
         String url = "http://localhost:8081/clients/" + id + "/remove";
         restTemplate.postForLocation(url, null);
-        return "redirect:/clients/" + id; // Перенаправляем, например, на список клиентов
+        return "redirect:/clients/" + id;
     }
+
     @PostMapping("/clients/{id}/create-account")
     public String createAccount(@PathVariable Long id,
                                 @RequestParam BigDecimal balance,
@@ -166,7 +163,4 @@ public class AuthController {
         restTemplate.postForEntity("http://localhost:8082/api/accounts", account, AccountDTO.class);
         return "redirect:/clients/" + id;
     }
-
-
 }
-

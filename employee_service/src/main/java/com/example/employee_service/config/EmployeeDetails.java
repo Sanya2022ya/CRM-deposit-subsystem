@@ -37,7 +37,6 @@ public class EmployeeDetails implements UserDetails {
         return !employee.isBlocked(); // <-- важно!
     }
 
-    // остальные методы:
     @Override
     public boolean isAccountNonExpired() {
         return true;
